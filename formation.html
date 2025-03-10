@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Anaël Delorme">
+
+<title>Tutoriel CloseRead</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="formation_files/libs/clipboard/clipboard.min.js"></script>
+<script src="formation_files/libs/quarto-html/quarto.js"></script>
+<script src="formation_files/libs/quarto-html/popper.min.js"></script>
+<script src="formation_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="formation_files/libs/quarto-html/anchor.min.js"></script>
+<link href="formation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="formation_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="formation_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="formation_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="formation_files/libs/bootstrap/bootstrap-1bc8a17f135ab3d594c857e9f48e611b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script type="module" src="formation_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="formation_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#formation-closeread" id="toc-formation-closeread" class="nav-link active" data-scroll-target="#formation-closeread">Formation Closeread</a>
+  <ul class="collapse">
+  <li><a href="#objectif" id="toc-objectif" class="nav-link" data-scroll-target="#objectif">Objectif</a></li>
+  <li><a href="#déroulement" id="toc-déroulement" class="nav-link" data-scroll-target="#déroulement">Déroulement</a></li>
+  <li><a href="#prérequis" id="toc-prérequis" class="nav-link" data-scroll-target="#prérequis">Prérequis</a></li>
+  </ul></li>
+  <li><a href="#storyboard---réfléchir-avant-de-plonger" id="toc-storyboard---réfléchir-avant-de-plonger" class="nav-link" data-scroll-target="#storyboard---réfléchir-avant-de-plonger">Storyboard - réfléchir avant de plonger</a></li>
+  <li><a href="#initialisation-facile" id="toc-initialisation-facile" class="nav-link" data-scroll-target="#initialisation-facile">Initialisation <span class="class" data-key="easy">facile</span></a></li>
+  <li><a href="#squelette-de-la-viz-facile" id="toc-squelette-de-la-viz-facile" class="nav-link" data-scroll-target="#squelette-de-la-viz-facile">Squelette de la viz <span class="class" data-key="easy">facile</span></a></li>
+  <li><a href="#scroll-sur-images-facile" id="toc-scroll-sur-images-facile" class="nav-link" data-scroll-target="#scroll-sur-images-facile">Scroll sur images <span class="class" data-key="easy">facile</span></a>
+  <ul class="collapse">
+  <li><a href="#etape-1---chargement-des-textes-et-des-images" id="toc-etape-1---chargement-des-textes-et-des-images" class="nav-link" data-scroll-target="#etape-1---chargement-des-textes-et-des-images">Etape 1 - chargement des textes et des images</a></li>
+  <li><a href="#etape-2---ajout-dune-section-closeread" id="toc-etape-2---ajout-dune-section-closeread" class="nav-link" data-scroll-target="#etape-2---ajout-dune-section-closeread">Etape 2 - ajout d’une section closeread</a></li>
+  <li><a href="#etape-3---choix-des-éléments-de-défilement-et-darrière-plan" id="toc-etape-3---choix-des-éléments-de-défilement-et-darrière-plan" class="nav-link" data-scroll-target="#etape-3---choix-des-éléments-de-défilement-et-darrière-plan">Etape 3 - choix des éléments de défilement et d’arrière plan</a></li>
+  </ul></li>
+  <li><a href="#eléments-de-focus-pour-une-image-facile" id="toc-eléments-de-focus-pour-une-image-facile" class="nav-link" data-scroll-target="#eléments-de-focus-pour-une-image-facile">Eléments de focus pour une image <span class="class" data-key="easy">facile</span></a>
+  <ul class="collapse">
+  <li><a href="#mise-à-léchelle-scale-by" id="toc-mise-à-léchelle-scale-by" class="nav-link" data-scroll-target="#mise-à-léchelle-scale-by">Mise à l’échelle : <strong>scale-by</strong></a></li>
+  <li><a href="#déplacement-pan-to" id="toc-déplacement-pan-to" class="nav-link" data-scroll-target="#déplacement-pan-to">Déplacement : <strong>pan-to</strong></a></li>
+  <li><a href="#combinaison-deffets" id="toc-combinaison-deffets" class="nav-link" data-scroll-target="#combinaison-deffets">Combinaison d’effets</a></li>
+  <li><a href="#exemple" id="toc-exemple" class="nav-link" data-scroll-target="#exemple">Exemple</a></li>
+  </ul></li>
+  <li><a href="#scroll-sur-du-texte-intermédiaire" id="toc-scroll-sur-du-texte-intermédiaire" class="nav-link" data-scroll-target="#scroll-sur-du-texte-intermédiaire">Scroll sur du texte <span class="class" data-key="inter">intermédiaire</span></a>
+  <ul class="collapse">
+  <li><a href="#zoom-sur-une-ligne-ou-un-élément-spécifique-zoom-to" id="toc-zoom-sur-une-ligne-ou-un-élément-spécifique-zoom-to" class="nav-link" data-scroll-target="#zoom-sur-une-ligne-ou-un-élément-spécifique-zoom-to">Zoom sur une ligne ou un élément spécifique : <strong>zoom-to</strong></a></li>
+  <li><a href="#mise-en-surbrillance-highlight" id="toc-mise-en-surbrillance-highlight" class="nav-link" data-scroll-target="#mise-en-surbrillance-highlight">Mise en surbrillance : <strong>highlight</strong></a></li>
+  <li><a href="#cas-particulier-de-code" id="toc-cas-particulier-de-code" class="nav-link" data-scroll-target="#cas-particulier-de-code">Cas particulier de code</a></li>
+  </ul></li>
+  <li><a href="#scroll-sur-un-graphique-en-r-intermédiaire" id="toc-scroll-sur-un-graphique-en-r-intermédiaire" class="nav-link" data-scroll-target="#scroll-sur-un-graphique-en-r-intermédiaire">Scroll sur un graphique en R <span class="class" data-key="inter">intermédiaire</span></a></li>
+  <li><a href="#modification-du-thème-intermédiaire" id="toc-modification-du-thème-intermédiaire" class="nav-link" data-scroll-target="#modification-du-thème-intermédiaire">Modification du thème <span class="class" data-key="inter">intermédiaire</span></a>
+  <ul class="collapse">
+  <li><a href="#thèmes-quarto" id="toc-thèmes-quarto" class="nav-link" data-scroll-target="#thèmes-quarto">Thèmes quarto</a></li>
+  <li><a href="#mise-en-page-des-éléments-textuels" id="toc-mise-en-page-des-éléments-textuels" class="nav-link" data-scroll-target="#mise-en-page-des-éléments-textuels">Mise en page des éléments textuels</a></li>
+  <li><a href="#layouts-closeread" id="toc-layouts-closeread" class="nav-link" data-scroll-target="#layouts-closeread">Layouts CloseRead</a></li>
+  <li><a href="#thèmes-et-mise-en-page-closeread" id="toc-thèmes-et-mise-en-page-closeread" class="nav-link" data-scroll-target="#thèmes-et-mise-en-page-closeread">Thèmes et mise en page CloseRead</a></li>
+  <li><a href="#mise-en-page-closeread-en-css" id="toc-mise-en-page-closeread-en-css" class="nav-link" data-scroll-target="#mise-en-page-closeread-en-css">Mise en page CloseRead en CSS</a></li>
+  </ul></li>
+  <li><a href="#scroll-sur-des-graphs-ou-cartes-javascript-avancé" id="toc-scroll-sur-des-graphs-ou-cartes-javascript-avancé" class="nav-link" data-scroll-target="#scroll-sur-des-graphs-ou-cartes-javascript-avancé">Scroll sur des graphs ou cartes Javascript <span class="class" data-key="hard">avancé</span></a>
+  <ul class="collapse">
+  <li><a href="#base-des-blocs-ojs" id="toc-base-des-blocs-ojs" class="nav-link" data-scroll-target="#base-des-blocs-ojs">Base des blocs ojs</a></li>
+  <li><a href="#intéraction-ojs-et-closeread" id="toc-intéraction-ojs-et-closeread" class="nav-link" data-scroll-target="#intéraction-ojs-et-closeread">Intéraction ojs et closeread</a></li>
+  <li><a href="#scroll-dans-un-progress-block" id="toc-scroll-dans-un-progress-block" class="nav-link" data-scroll-target="#scroll-dans-un-progress-block">Scroll dans un progress-block</a></li>
+  <li><a href="#cartes" id="toc-cartes" class="nav-link" data-scroll-target="#cartes">Cartes</a></li>
+  </ul></li>
+  <li><a href="#déploiement-sur-github-pages-avancé" id="toc-déploiement-sur-github-pages-avancé" class="nav-link" data-scroll-target="#déploiement-sur-github-pages-avancé">Déploiement sur Github Pages <span class="class" data-key="hard">avancé</span></a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tutoriel CloseRead</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Anaël Delorme </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+
+  #quarto-document-content h1 {
+    font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
+    font-weight: 500;
+    font-size: 2.3em;
+    line-height: 1.1;
+    margin-top: 0;
+  }
+
+  .objective, .process, .prerequisites {
+  background-color: #f4f4f9;
+  border-left: 6px solid #3498db;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.class[data-key="easy"] {
+  background-color: green;
+  border-radius: 5px;
+  padding: 3px;
+  display: inline-block;
+  color: white
+}
+
+.class[data-key="inter"] {
+  background-color: orange;
+  border-radius: 5px;
+  padding: 3px;
+  display: inline-block;
+  color: white
+}
+
+.class[data-key="hard"] {
+  background-color: red;
+  border-radius: 5px;
+  padding: 3px;
+  display: inline-block;
+  color: white
+}
+
+pre code {
+    font-family: "Fira Code", monospace;
+    background-color: #f3f3f3;
+    color: #383a6b;
+    font-weight: bold; 
+    padding: 5px 10px; /* Espacement interne */
+    border: solid 2px #383a6b;
+    border-radius: 8px; /* Bordure arrondie */
+    display: block; /* Utiliser block pour mieux gérer la largeur */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légère */
+    overflow-x: auto; /* Activer le défilement horizontal si nécessaire */
+    white-space: pre-wrap; /* Préserver les espaces et permettre le wrapping */
+    max-width: 100%; /* Empêcher le dépassement de la largeur du conteneur parent */
+}
+
+p code {
+    font-family: "Fira Code", monospace;
+    background-color: #f3f3f3;
+    color: #383a6b;
+    font-weight: bold; 
+    padding: 5px 10px; /* Espacement interne */
+    border: solid 2px #383a6b;
+    border-radius: 8px; /* Bordure arrondie */
+    display: inline-block; /* Affichage inline-block */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Ombre légère */
+}
+
+  
+</style>
+<section id="formation-closeread" class="level2 objective">
+<h2 class="objective anchored" data-anchor-id="formation-closeread">Formation Closeread</h2>
+<section id="objectif" class="level3">
+<h3 class="anchored" data-anchor-id="objectif">Objectif</h3>
+<p>Créer une première dataviz en datascrollytelling sur un thème qui vous tient à coeur.</p>
+</section>
+<section id="déroulement" class="level3">
+<h3 class="anchored" data-anchor-id="déroulement">Déroulement</h3>
+<p>Selon votre niveau de connaissance en quarto/R/observable, vous pourrez vous arrêter en cours de formation. Mais vous aurez à toute étape une dataviz.</p>
+<ol type="1">
+<li><strong>Storyboard</strong> : Création du déroulé narratif de votre viz, avec création des textes et récupération des images/données utiles <span class="class" data-key="easy">facile</span></li>
+<li><strong>Initialisation</strong> : Création d’un document quarto et installation de closeread <span class="class" data-key="easy">facile</span></li>
+<li><strong>Squellette de la viz</strong> : Création de l’introduction/conclusion et des différentes parties de la dataviz <span class="class" data-key="easy">facile</span></li>
+<li><strong>Scroll sur images</strong> : Intégration d’images et de textes, avec le scroll qui fait apparaitre le texte et l’image correspondante <span class="class" data-key="easy">facile</span></li>
+<li><strong>Scroll sur du texte</strong> : Intégration de textes qui sera mis en évidence selon le scroll <span class="class" data-key="easy">facile</span></li>
+<li><strong>Scroll sur un graphique en R</strong> : Création de graphique qui évoluera selon le scroll <span class="class" data-key="inter">intermédiaire</span></li>
+<li><strong>Modification du thème</strong> : Changement de l’aspect de la dataviz en changeant le thème <span class="class" data-key="inter">intermédiaire</span></li>
+<li><strong>Scroll sur des graphs ou cartes Javascript</strong> : Création de cartes qui évoluent avec le scroll <span class="class" data-key="hard">avandé</span></li>
+<li><strong>Déploiement sur Github Pages</strong> : Diffusion sur Internet avec Github Pages <span class="class" data-key="hard">avandé</span></li>
+</ol>
+</section>
+<section id="prérequis" class="level3">
+<h3 class="anchored" data-anchor-id="prérequis">Prérequis</h3>
+<ul>
+<li>Avoir accès à RStudio ou VSCode</li>
+</ul>
+</section>
+</section>
+<section id="storyboard---réfléchir-avant-de-plonger" class="level2">
+<h2 class="anchored" data-anchor-id="storyboard---réfléchir-avant-de-plonger">Storyboard - réfléchir avant de plonger</h2>
+<p>Avant de vous lancer dans la création de votre dataviz et de votre datascrollytelling dans Quarto, prenez le temps de réfléchir à l’organisation globale de votre projet. Un <strong>storyboard</strong> est un outil clé pour structurer votre récit et anticiper les étapes nécessaires à sa réalisation.</p>
+<ul>
+<li><p><strong>Définissez un plan clair</strong> : Identifiez les messages que vous voulez transmettre et dans quel ordre. Une narration bien pensée guidera vos lecteurs efficacement.</p></li>
+<li><p><strong>Préparez les éléments nécessaires</strong> : Rassemblez les données, les textes, les images, et les illustrations qui enrichiront votre présentation.</p></li>
+<li><p><strong>Pensez à l’interaction</strong> : Repérez les points où vous voulez mettre l’accent, zoomer sur des éléments importants ou afficher des détails spécifiques.</p></li>
+<li><p><strong>Visualisez vos transitions</strong> : Comment passer d’une idée à l’autre ? Ces étapes doivent être fluides pour garder l’attention de votre audience.</p></li>
+</ul>
+<p>Un storyboard vous permettra de garder une vue d’ensemble tout en anticipant les défis techniques et narratifs. Cette préparation est essentielle pour maximiser l’impact de votre datascrollytelling !</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Liens vers la documentation utile">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Liens vers la documentation utile
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><a href="https://quarto.org/">Site Quarto</a></p></li>
+<li><p><a href="https://quarto.org/docs/authoring/markdown-basics.html">Bases de markdown</a></p></li>
+<li><p><a href="https://closeread.dev/">Site closeread</a></p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="initialisation-facile" class="level2">
+<h2 class="anchored" data-anchor-id="initialisation-facile">Initialisation <span class="class" data-key="easy">facile</span></h2>
+<p><strong>CloseRead</strong> est une extension conçue pour fonctionner avec <strong>Quarto.</strong> Avant de commencer, assurez-vous que votre environnement de travail est prêt :</p>
+<ol type="1">
+<li><p>Ouvrez RStudio : Lancez RStudio, l’environnement idéal pour travailler avec Quarto.</p></li>
+<li><p>Créez un projet dédié : Il est recommandé de créer un nouveau projet pour organiser vos fichiers. Cela facilitera la gestion des ressources et des dépendances.</p></li>
+<li><p>Créez un document Quarto : Générez un premier fichier .qmd (Quarto Markdown), qui servira de base à votre projet de datascrollytelling. Pour ce faire, utilisez l’option Fichier &gt; Nouveau fichier &gt; Quarto Document dans RStudio. <img src="img/formation/new_quarto.png" class="img-fluid"> Puis remplissez les différents paramètres (décocher l’éditeur visuel) <img src="img/formation/new_quarto_2.png" class="img-fluid"></p></li>
+<li><p>Installez l’extension CloseRead : À la racine de votre projet (là où se trouve votre fichier .qmd), installez l’extension CloseRead. Cela permettra d’ajouter les fonctionnalités nécessaires à votre projet. Cela se passe dans le terminal à droite de la console. <img src="img/formation/install_closeread.png" class="img-fluid"></p></li>
+</ol>
+<pre><code>quarto add qmd-lab/closeread</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si vous êtes sur Cerise, il n’est pas possible d’installer l’extension. Pour contourner cette difficulté, récupérer le fichier _extensions.zip que vous trouverez sur CERISE/04-Espace-Echanges/Ateliers/Closeread et Téléchargez-le à la racine de votre projet. Le fichier sera automatiquement décompressé et l’extension sera active.</p>
+</div>
+</div>
+<p>Une fois ces étapes terminées, vous serez prêt à explorer les possibilités offertes par CloseRead pour enrichir vos visualisations et votre storytelling.</p>
+</section>
+<section id="squelette-de-la-viz-facile" class="level2">
+<h2 class="anchored" data-anchor-id="squelette-de-la-viz-facile">Squelette de la viz <span class="class" data-key="easy">facile</span></h2>
+<p>Vous pouvez commencer à créer un première squelette de dataviz :</p>
+<ol type="1">
+<li>Paramétrage de l’entête YAML</li>
+</ol>
+<p>Il faut indiquer que le format est closeread-html</p>
+<pre><code>---
+title: Ma dataviz
+Author: Moi
+format: closeread-html
+---</code></pre>
+<ol type="1">
+<li><p>Ajoutez votre texte d’introduction</p></li>
+<li><p>Ajoutez vos différents titres</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un titre de niveau 1 est précédé d’un <code>#</code>, un titre de niveau 2 de deux <code>##</code>, etc…</p>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Vérifiez que tout fonctionne</li>
+</ol>
+<p>En cliquant sur le bouton <code>Rendu</code>, le quarto va générer une page web au format html.</p>
+<p><img src="img/formation/rendu.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En lançant le <code>Rendu</code> il vous sera demandé de sauvegarder le fichier .qmd au préalable</p>
+</div>
+</div>
+<p>Vous pouvez consulter le fichier d’exemple ici : <a href="./example_formation/1-squelette.qmd" target="_blank">1-squelette</a></p>
+</section>
+<section id="scroll-sur-images-facile" class="level2">
+<h2 class="anchored" data-anchor-id="scroll-sur-images-facile">Scroll sur images <span class="class" data-key="easy">facile</span></h2>
+<section id="etape-1---chargement-des-textes-et-des-images" class="level3">
+<h3 class="anchored" data-anchor-id="etape-1---chargement-des-textes-et-des-images">Etape 1 - chargement des textes et des images</h3>
+<p>Pour comprendre le fonctionnement, très simple, de closeread, ajoutez des images et du texte dans une de vos parties.</p>
+<ol type="1">
+<li><p>créez un répertoire <code>img</code> dans votre projet</p></li>
+<li><p>téléchargez vos photos</p></li>
+<li><p>dans votre .qmd ajoutez les photos et les textes en les alternant</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Une photo s’ajoute très simplement avec le code <code>![](./img/ma_photo.png)</code></p>
+</div>
+</div>
+<p>Vous pouvez tester un <code>rendu</code> pour vérifier que les images et le texte s’affichent correctement.</p>
+</section>
+<section id="etape-2---ajout-dune-section-closeread" class="level3">
+<h3 class="anchored" data-anchor-id="etape-2---ajout-dune-section-closeread">Etape 2 - ajout d’une section closeread</h3>
+<p>Vous pouvez passer à l’animation de votre page avec closeread. Le principe est de faire défiler les textes au dessus des images, avec les images qui vont changer selon le niveau de scroll.</p>
+<p>Vous devez indiquer à votre document quarto que vous souhaitez ajouter une section closeread. Englobez votre texte et vos images par la balise ouvrante de section CloseRead <code>::::{.cr-section}</code> et la balise fermante <code>::::</code>.</p>
+<p>Voici mon code :</p>
+<pre><code># Les grandes énigmes des données invisibles
+
+::::{.cr-section}
+
+![](./img/img1.webp)
+
+**L'énigme flottante des données invisibles**    
+Les chiffres chuchotent leurs secrets aux angles invisibles d'une géométrie oubliée. Saurons-nous un jour entendre leurs vérités non-numériques ? 
+
+![](./img/img2.webp)
+
+**Le labyrinthe des connexions furtives**    
+Chaque pixel est une porte, mais laquelle mène au sommet du triangle imaginaire ? Une énigme pour les esprits quantiques. 
+
+![](./img/img3.webp)
+
+**L'éclipse des données perdues**     
+Quand les graphiques se camouflent dans les ombres des spectres, seule une poignée de courbes revient. Les autres ? Elles errent entre deux dimensions. 
+
+::::
+</code></pre>
+<p>Vous pouvez tester un <code>rendu</code> pour vérifier que les images et le texte s’affichent dans une section closeread. Vous noterez que tout défile à gauche. En effet nous n’avons pas spécifié les éléments à mettre en défilement et les éléments à mettre en arrière plan.</p>
+</section>
+<section id="etape-3---choix-des-éléments-de-défilement-et-darrière-plan" class="level3">
+<h3 class="anchored" data-anchor-id="etape-3---choix-des-éléments-de-défilement-et-darrière-plan">Etape 3 - choix des éléments de défilement et d’arrière plan</h3>
+<p>Dans notre exemple, les textes sont en défilement et les images viennent en arrière plan les unes après les autres.</p>
+<p>L’élément qui ne bouge pas (un <code>sticky</code> en closeread) est encadré par une balise préfixé par <code>#cr-</code>. Par exemple, la balise ouvrante est <code>:::{#cr-monImage1}</code> et la fermante est <code>:::</code>.</p>
+<p>L’élement qui bouge (un trigger) est suivi de l’appel de ce sticky sous la forme <code>@cr-monImage1</code>.</p>
+<p>Voici le code final avec 3 images :</p>
+<pre><code>::::{.cr-section}           &lt;!--- Début d'une section CloseRead ---&gt;
+
+:::{#cr-image1}             &lt;!--- Un sticky (l'image de fond fixe) ---&gt;
+![](./img/img1.webp)
+:::                         &lt;!--- Fin du sticky  ---&gt;
+**L'énigme flottante des données invisibles**    
+Les chiffres chuchotent leurs secrets aux angles invisibles d'une géométrie oubliée. Saurons-nous un jour entendre leurs vérités non-numériques ? @cr-image1   ## appel du texte qui vient défiler sur le sticky @cr-image1
+
+:::{#cr-image2}                &lt;!--- Un autre sticky (l'image de fond change) ---&gt;
+![](./img/img2.webp)
+:::
+
+**Le labyrinthe des connexions furtives**    
+Chaque pixel est une porte, mais laquelle mène au sommet du triangle imaginaire ? Une énigme pour les esprits quantiques. @cr-image2
+
+:::{#cr-image3}
+![](./img/img3.webp)
+:::
+
+**L'éclipse des données perdues**     
+Quand les graphiques se camouflent dans les ombres des spectres, seule une poignée de courbes revient. Les autres ? Elles errent entre deux dimensions. @cr-image3
+
+::::             &lt;!--- Fin de ma section closeread ---&gt;
+</code></pre>
+<p>Vous pouvez tester un <code>rendu</code> pour vérifier que le texte scrolle correctement et que l’image s’affiche bien.</p>
+<p>Vous pouvez consulter le fichier d’exemple ici : <a href="./example_formation/2-scroll_image.qmd" target="_blank">2-scroll_image</a></p>
+</section>
+</section>
+<section id="eléments-de-focus-pour-une-image-facile" class="level2">
+<h2 class="anchored" data-anchor-id="eléments-de-focus-pour-une-image-facile">Eléments de focus pour une image <span class="class" data-key="easy">facile</span></h2>
+<p>Les effets de focus permettent de diriger l’attention du lecteur sur certains aspects spécifiques de vos stickies. En reprenant l’exemple précédent, les effets de focus permettraient de diriger l’attention du lecteur sur une partie des images qui sont en stickies.</p>
+<p>Pour utiliser un élément de focus, vous modifierez l’appel dans votre trigger. A la place de <code>Mon texte.... @cr-monSticky</code>, vous mettrez <code>Mon texte.... [@cr-monSticky]{type_focus="valeur_du_focus}"</code>.</p>
+<p>En closeRead, il existe 2 effets de focus sur une image :</p>
+<section id="mise-à-léchelle-scale-by" class="level3">
+<h3 class="anchored" data-anchor-id="mise-à-léchelle-scale-by">Mise à l’échelle : <strong>scale-by</strong></h3>
+<p>Vous pouvez ajuster la taille d’un sticky pour attirer l’attention ou donner un effet visuel.</p>
+<p><code>[@cr-mycontent]{scale-by="1.5"}</code></p>
+<p>Dans cet exemple, l’élément correspondant sera agrandi de 50 %.</p>
+</section>
+<section id="déplacement-pan-to" class="level3">
+<h3 class="anchored" data-anchor-id="déplacement-pan-to">Déplacement : <strong>pan-to</strong></h3>
+<p>Pour centrer une partie précise d’un élément (souvent une image), vous pouvez utiliser l’attribut pan-to. Ce dernier accepte des unités relatives (%) ou absolues (pixels).</p>
+<p><code>[@cr-mycontent]{pan-to="25%,-50%"}</code> : l’élément sera déplacé de 25 % de sa largeur vers la droite et de 50 % de sa hauteur vers le haut. <code>[@cr-mycontent]{pan-to="-30px, 30px"}</code> : l’élément sera déplacé de 30 px vers la gauche et de 30 px vers le bas.</p>
+</section>
+<section id="combinaison-deffets" class="level3">
+<h3 class="anchored" data-anchor-id="combinaison-deffets">Combinaison d’effets</h3>
+<p>Vous pouvez combinez les effets en les enchainant dans la déclaration.</p>
+<p><code>[@cr-mycontent]{scale-by="1.5" pan-to="25%,-50%"}</code> : l’élément sera agrandi de 50% et déplacé de 25 % de sa largeur vers la droite et de 50 % de sa hauteur vers le haut.</p>
+</section>
+<section id="exemple" class="level3">
+<h3 class="anchored" data-anchor-id="exemple">Exemple</h3>
+<p>Vous pouvez adapter votre code précédent pour ajouter des effets de déplacements et de zoom.</p>
+<pre><code>::::{.cr-section}           &lt;!--- Début d'une section CloseRead ---&gt;
+
+:::{#cr-image1}             &lt;!--- Un sticky (l'image de fond fixe) ---&gt;
+![](./img/img1.webp)
+:::                         &lt;!--- Fin du sticky  ---&gt;
+**L'énigme flottante des données invisibles**    
+Les chiffres chuchotent leurs secrets aux angles invisibles d'une géométrie oubliée. Saurons-nous un jour entendre leurs vérités non-numériques ? @cr-image1   ## appel du texte qui vient défiler sur le sticky @cr-image1
+
+:::{#cr-image2}                &lt;!--- Un autre sticky (l'image de fond change) ---&gt;
+![](./img/img2.webp)
+:::
+
+**Le labyrinthe des connexions furtives**    
+Chaque pixel est une porte, mais laquelle mène au sommet du triangle imaginaire ? Une énigme pour les esprits quantiques. @cr-image2
+
+:::{#cr-image3}
+![](./img/img3.webp)
+:::
+
+**L'éclipse des données perdues**     
+Quand les graphiques se camouflent dans les ombres des spectres, seule une poignée de courbes revient. Les autres ? Elles errent entre deux dimensions. @cr-image3
+
+::::             &lt;!--- Fin de ma section closeread ---&gt;
+</code></pre>
+<p>Vous pouvez consulter le fichier d’exemple ici : <a href="./example_formation/3-scroll_image_with_focus.qmd" target="_blank">3-scroll_image_with_focus</a></p>
+</section>
+</section>
+<section id="scroll-sur-du-texte-intermédiaire" class="level2">
+<h2 class="anchored" data-anchor-id="scroll-sur-du-texte-intermédiaire">Scroll sur du texte <span class="class" data-key="inter">intermédiaire</span></h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Les effets sur les textes fonctionnent bien surtout sur des textes courts et en ligne comme les poèmes, ainsi que pour les lignes de code.</p>
+</div>
+</div>
+<p>Pour l’instant nous avons vu le seul cas de figure où le sticky est une image. Il est possible d’avoir d’autres stickies comme du texte, ou du code.</p>
+<p>Le fonctionnement reste le même avec des triggers qui défilent sur du texte qui reste en fond de page. Des éléments de focus sont spécifiques aux textes</p>
+<section id="zoom-sur-une-ligne-ou-un-élément-spécifique-zoom-to" class="level3">
+<h3 class="anchored" data-anchor-id="zoom-sur-une-ligne-ou-un-élément-spécifique-zoom-to">Zoom sur une ligne ou un élément spécifique : <strong>zoom-to</strong></h3>
+<p>Uniquement si le sticky est du code ou une ligne, il est possible de zoomer directement sur une ligne ou un span identifié.</p>
+<p><code>[@cr-mycontent]{zoom-to="3"}</code> : zoom sur la ligne 3<br>
+<code>[@cr-mycontent]{zoom-to="cr-span1"}</code> : zoom sur la ligne dont l’id est cr-span1</p>
+</section>
+<section id="mise-en-surbrillance-highlight" class="level3">
+<h3 class="anchored" data-anchor-id="mise-en-surbrillance-highlight">Mise en surbrillance : <strong>highlight</strong></h3>
+<p>Pour mettre en surbrillance du texte, vous pouvez utiliser le focus highlight :</p>
+<p><code>[@cr-mycontent]{highlight="3-6"}</code> : mise en surbrillance des lignes 3 à 6<br>
+<code>[@cr-mycontent]{highlight="cr-span1"}</code> : zoom sur les lignes dont l’id est cr-span1</p>
+</section>
+<section id="cas-particulier-de-code" class="level3">
+<h3 class="anchored" data-anchor-id="cas-particulier-de-code">Cas particulier de code</h3>
+<p>Vous pouvez facilement zoomer ou mettre en surbrillance des lignes de code comme du texte normal ! C’est très puissant pour un support de formation en R ou Python.</p>
+<p>Vous pouvez consulter le fichier d’exemple ici : <a href="./example_formation/4-scroll-text-with-focus.qmd" target="_blank">4-scroll-text-with-focus</a></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vous remarquerez dans la déclaration des textes la classe .scale-to-fill qui permet de mettre à l’échelle le sticky pour qu’elle remplisse la fenêtre de visualisation sans distorsion ni recadrage.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="scroll-sur-un-graphique-en-r-intermédiaire" class="level2">
+<h2 class="anchored" data-anchor-id="scroll-sur-un-graphique-en-r-intermédiaire">Scroll sur un graphique en R <span class="class" data-key="inter">intermédiaire</span></h2>
+<p>Dans le datascrollytelling, l’utilisation de graphiques dynamiques constitue un puissant moyen de capter l’attention du lecteur et de transmettre des informations complexes de manière progressive. L’objectif est de synchroniser le texte défilant avec des visualisations interactives pour que les bonnes explications apparaissent au moment où les données pertinentes sont mises en avant. CloseRead facilite cette synchronisation en combinant des graphiques ggplot en “stickies” et des triggers en texte.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si vous n’avez pas envie de faire du ggplot, vous pouvez créer des graphiques dans un autre outil (datawrapper par exemple) et les exporter au format image. Ensuite il ne reste plus qu’à scroller ou zoomer comment pour les images.</p>
+</div>
+</div>
+<ol type="1">
+<li>Créez le graphique complet en ggplot - écrivez les texte</li>
+</ol>
+<p>Pour commencer vous devez créer votre graphique complet avec toutes les courbes. Pour que le scroll fasse apparaitre proprement les courbes il faut au préalable :</p>
+<ul>
+<li>Pensez à définir les axes en fixant le min et le max : les axes ne bougeront pas quelque soient les données à afficher.<br>
+</li>
+<li>Fixez la couleur des courbes pour qu’elles soient identiques quelque soit le scroll. Par exemple en faisant un <code>scale_color_manual(values = couleurs_especes)</code>.<br>
+</li>
+<li>Intégrez la légende dans le graphique pour éviter que la taille de la légende fasse bouger la largeur du graphique.</li>
+</ul>
+<p>Rédigez par ailleurs les textes que vous souhaitez afficher.</p>
+<p>Voilà un exemple du code ggpglot :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Chargement de ggplot2</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Création des données simulées</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  année <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">2010</span><span class="sc">:</span><span class="dv">2019</span>, <span class="dv">3</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> <span class="fu">c</span>(</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100</span> <span class="sc">+</span> <span class="fu">cumsum</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">3</span>)),  <span class="co"># Plumifloron Azuré</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">40</span> <span class="sc">+</span> <span class="fu">cumsum</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="sc">-</span><span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">4</span>)), <span class="co"># Taurillon Rubicond</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">80</span> <span class="sc">+</span> <span class="fu">cumsum</span>(<span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">3</span>, <span class="at">sd =</span> <span class="dv">2</span>))    <span class="co"># Luminéon Écarlate</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  espèce <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Plumifloron Azuré"</span>, </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Taurillon Rubicond"</span>, </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Luminéon Écarlate"</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># On fixe les couleurs</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>couleurs_especes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Plumifloron Azuré"</span> <span class="ot">=</span> <span class="st">"#1E90FF"</span>,     </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Taurillon Rubicond"</span> <span class="ot">=</span> <span class="st">"#FF4500"</span>,    </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Luminéon Écarlate"</span> <span class="ot">=</span> <span class="st">"#32CD32"</span>     </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Graphique avec un geom par courbe et axes fixes</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> année, <span class="at">y =</span> population, <span class="at">color =</span> espèce)) <span class="sc">+</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">subset</span>(data, espèce <span class="sc">==</span> <span class="st">"Plumifloron Azuré"</span>)) <span class="sc">+</span>  </span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">subset</span>(data, espèce <span class="sc">==</span> <span class="st">"Taurillon Rubicond"</span>)) <span class="sc">+</span>   </span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">subset</span>(data, espèce <span class="sc">==</span> <span class="st">"Luminéon Écarlate"</span>)) <span class="sc">+</span>   </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">2019</span>), <span class="at">breaks =</span> <span class="dv">2010</span><span class="sc">:</span><span class="dv">2019</span>) <span class="sc">+</span> </span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">175</span>)) <span class="sc">+</span>    </span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_color_manual</span>(<span class="at">values =</span> couleurs_especes) <span class="sc">+</span>  </span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Évolution des populations animales (2010-2019)"</span>,</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Année"</span>,</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Population"</span>,</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Espèces"</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">2</span>, <span class="fl">0.9</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>Créez la section closeRead</li>
+</ol>
+<p>Vous créez une section closeRead où vous mettez dedans :</p>
+<ul>
+<li>des stickies correspondant à vos graphiques (donc des stickies qui englobent chacun un chunk R)</li>
+<li>des textes pour les triggers</li>
+</ul>
+<p>Dans notre exemple, nous avons 4 textes : un texte de présentation, puis un texte par espèce. Nous avons donc également 4 stickies : un premier stocky qui comprend un chunk avec un graphique vide sans aucun geom_line, puis pour chacun des 3 autres stickies on ajoute à chaque fois un geom_line. Il ne reste plus qu’à faire coïncider les stickies et les triggers.</p>
+<p>L’exemple <a href="./example_formation/5-scroll-graph-ggplot.qmd" target="_blank">5-scroll-graph-ggplot.qmd</a> vous montrera l’implémentation.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nous avons choisi que le scroll permet d’afficher progressivement chacune des courbes. Vous pourriez aussi jouer sur la taille des courbes ou leurs couleurs. Le principe reste le même !</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vous pouvez jouer sur la taille du graphique affiché directement dans les options de quarto: fig-width et fig-height à définir dans les options du chunk.</p>
+</div>
+</div>
+</section>
+<section id="modification-du-thème-intermédiaire" class="level2">
+<h2 class="anchored" data-anchor-id="modification-du-thème-intermédiaire">Modification du thème <span class="class" data-key="inter">intermédiaire</span></h2>
+<p>Une datavisualisation efficace combine clarté des données et esthétique soignée. Pour cela, Quarto et CloseRead offrent des outils complémentaires : le premier permet une gestion globale du thème et la mise en page des éléments textuels, tandis que le second fournit des options pour personnaliser et enrichir la présentation dynamique.</p>
+<section id="thèmes-quarto" class="level3">
+<h3 class="anchored" data-anchor-id="thèmes-quarto">Thèmes quarto</h3>
+<p>Par défaut, quarto propose 25 thèmes de rendu <a href="https://quarto.org/docs/output-formats/html-themes.html">Voir HTML Theming dans la doc quarto</a>.</p>
+<p>Dans l’entête yaml du document quarto, tentez simplement de paramétrer le thème. Par exemple, reprenez votre entente et mettez :</p>
+<pre><code>---
+title: "Ma super dataviz"
+author: "Moi"
+format: 
+  closeread-html:
+    theme: cyborg
+---</code></pre>
+<p>Il est possible de venir surcharger le thème en changeant la taille de la police, la couleur de fond, ect… Par exemple :</p>
+<pre><code>---
+title: "Ma super dataviz"
+author: "Moi"
+format: 
+  closeread-html:
+    theme: cyborg
+    backgroundcolor: darkslateblue
+    fontsize: 1.4em
+---</code></pre>
+<p>Vous constaterez que seules les parties hors section closeRead sont impactées. C’est déjà un bon début.</p>
+</section>
+<section id="mise-en-page-des-éléments-textuels" class="level3">
+<h3 class="anchored" data-anchor-id="mise-en-page-des-éléments-textuels">Mise en page des éléments textuels</h3>
+<p>Quarto permet le formatage classique de markdown :</p>
+<ul>
+<li><p>Police : <code>*italics*, **bold**, ***bold italics***</code></p></li>
+<li><p>Titres : <code># Header 1, ## Header 2, ### Header 3...</code></p></li>
+<li><p>Listes : <code>* unordered list     + sub-item 1     + sub-item 2         - sub-sub-item 1</code></p></li>
+</ul>
+<p>Quarto permet également de créer des blocs avec des mises en forme spécifiques. Pour cela il faut créer une section et lui dire quel style appliqué selon les 5 possibilités : <code>note</code>, <code>tip</code>, <code>warning</code>, <code>caution</code>, and <code>important</code>. Par exemple :</p>
+<pre><code>:::{.callout-note}
+Ceci est une note !
+:::
+
+:::{.callout-tip}
+Et là une astuce
+:::
+
+:::{.callout-warning title="Attention attention"}
+Maintenant un bloc d'attention avec un titre
+:::
+</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ces blocs ne semblent pas bien fonctionner dans le texte qui défile en Closeread.</p>
+</div>
+</div>
+</section>
+<section id="layouts-closeread" class="level3">
+<h3 class="anchored" data-anchor-id="layouts-closeread">Layouts CloseRead</h3>
+<p>Par défaut le défilement se fait à gauche avec l’image/texte/graphique qui reste à droite. En closeread on dit que le layout est “sidebar-left”. Pour le changer on peut soit le définir pour toute la page, soit pour une section en particulier.</p>
+<p>Si vous voulez le changer pour toute la page, vous l’indiquez dans le yaml en entête :</p>
+<pre><code>---
+title: "Ma super dataviz"
+author: "Moi"
+format: 
+  closeread-html:
+    theme: cyborg
+    backgroundcolor: darkslateblue
+    fontsize: 1.4em
+    cr-section:
+      layout: "overlay-center"
+---</code></pre>
+<p>Pour le définir juste sur une section, vous devez l’indiquer à la création de la section :</p>
+<pre><code>:::{.cr-section layout="overlay-center"}
+
+
+//// le contenu de la section ici...
+
+:::</code></pre>
+<p>Les options de layout sont</p>
+<ul>
+<li>sidebar-left (par défaut)</li>
+<li>sidebar-right</li>
+<li>overlay-left</li>
+<li>overlay-center</li>
+<li>overlay-right</li>
+</ul>
+</section>
+<section id="thèmes-et-mise-en-page-closeread" class="level3">
+<h3 class="anchored" data-anchor-id="thèmes-et-mise-en-page-closeread">Thèmes et mise en page CloseRead</h3>
+<p>Les aspects de rendu spécifiques de Closeread se paramètrent dans l’entête dans la clé cr-style. Par exemple :</p>
+<pre><code>---
+title: "Ma super dataviz"
+author: "Moi"
+format: 
+  closeread-html:
+    theme: cyborg
+    backgroundcolor: darkslateblue
+    fontsize: 1.4em
+    cr-section:
+      layout: "overlay-center"
+    cr-style:
+      narrative-background-color-sidebar: darkslateblue
+      narrative-text-color-sidebar: white
+      section-background-color: darkslateblue
+      narrative-background-color-overlay: violet
+      narrative-text-color-overlay: black
+---</code></pre>
+<p>Dans cet exemple, j’ai passé tout le fond en violet aussi bien pour la partie de gauche où le texte scrolle que pour la partie centrale. Pour le texte qui vient se mettre par dessus l’image, j’ai mis une couleur violette et un texte en noir. Les autres options sont disponibles sur le <a href="https://closeread.dev/guide/styling.html">site de documentation CloseRead</a>.</p>
+</section>
+<section id="mise-en-page-closeread-en-css" class="level3">
+<h3 class="anchored" data-anchor-id="mise-en-page-closeread-en-css">Mise en page CloseRead en CSS</h3>
+<p>Pour aller plus loin dans la mise en page, vous pouvez définir des éléments de feuilles de style dans votre document quarto. Par exemple, créez un chunk de type ```{=html} :</p>
+<pre><code>&lt;!-- some quick style customisation: see https://closeread.dev/guide/styling --&gt;
+&lt;style&gt;
+  .cr-section.overlay-left {
+    background-color: white;
+  }
+
+  .cr-section.overlay-left .narrative-col .narrative {
+    font-size: 1.15em;
+    background-color: #3a79aa;
+    color: #f1f1f1;
+    padding: 0.6em 0.8em;
+    border-radius: 1;
+    backdrop-filter: blur(10px);
+  }
+  
+  .cr-section.overlay-left .narrative-col .narrative a {
+    background-color: #3a79aa;
+    color: #f1f1f1;
+  }
+  
+&lt;/style&gt;</code></pre>
+<p>Vous pouvez voir un exemple ici : <a href="./example_formation/6-scroll_image_with_theme.qmd" target="_blank">6-scroll_image_with_theme.qmd</a></p>
+</section>
+</section>
+<section id="scroll-sur-des-graphs-ou-cartes-javascript-avancé" class="level2">
+<h2 class="anchored" data-anchor-id="scroll-sur-des-graphs-ou-cartes-javascript-avancé">Scroll sur des graphs ou cartes Javascript <span class="class" data-key="hard">avancé</span></h2>
+<p>Quarto permet d’intéger des chunks Observable Javascript - OJS, permettant de faire du javascript directement en quarto. Pour rappel Javascript est un langage de programmation principalement utilisé pour créer des interactions dynamiques et des fonctionnalités interactives sur les sites web. Closeread rentre en intéraction avec ces blocs ojs en les rendant dynamiques lors d’un scroll.</p>
+<section id="base-des-blocs-ojs" class="level3">
+<h3 class="anchored" data-anchor-id="base-des-blocs-ojs">Base des blocs ojs</h3>
+<p>Nativement Quarto d’intégrer des chunks ojs de la même manière que des chunks r ou python. Pour obtenir le rendu d’un chunk ojs il faut lancer le rendu de la page complète (le run du seul chunk ne suffit pas).</p>
+<p>Voici un exemple très simple en utilisant un plot Observable <a href="https://observablehq.com/plot/">Voir Observable plot</a> :</p>
+<div class="cell" data-eval="false">
+<div class="sourceCode cell-code" id="cb14" data-startfrom="678" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 677;"><span id="cb14-678"><a href="#cb14-678" aria-hidden="true" tabindex="-1"></a>gistemp <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"gistemp.csv"</span>)<span class="op">.</span><span class="fu">csv</span>({<span class="dt">typed</span><span class="op">:</span> <span class="kw">true</span>})</span>
+<span id="cb14-679"><a href="#cb14-679" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-680"><a href="#cb14-680" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb14-681"><a href="#cb14-681" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb14-682"><a href="#cb14-682" aria-hidden="true" tabindex="-1"></a>    <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb14-683"><a href="#cb14-683" aria-hidden="true" tabindex="-1"></a>    <span class="dt">tickFormat</span><span class="op">:</span> <span class="st">"+f"</span><span class="op">,</span></span>
+<span id="cb14-684"><a href="#cb14-684" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Surface temperature anomaly (°C)"</span></span>
+<span id="cb14-685"><a href="#cb14-685" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb14-686"><a href="#cb14-686" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb14-687"><a href="#cb14-687" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scheme</span><span class="op">:</span> <span class="st">"BuRd"</span><span class="op">,</span></span>
+<span id="cb14-688"><a href="#cb14-688" aria-hidden="true" tabindex="-1"></a>    <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb14-689"><a href="#cb14-689" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span></span>
+<span id="cb14-690"><a href="#cb14-690" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb14-691"><a href="#cb14-691" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb14-692"><a href="#cb14-692" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(gistemp<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"Date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Anomaly"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"Anomaly"</span>})</span>
+<span id="cb14-693"><a href="#cb14-693" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb14-694"><a href="#cb14-694" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="{callout-tip}">
+<p>Par défaut le code {ojs} est affiché. Pour l’enlever il faut ajouter le paramètre <code>//| echo: false</code> ou mettre dans l’entête yaml : execute:<br>
+echo: false</p>
+</div>
+<p>En savoir sur le <a href="https://quarto.org/docs/interactive/ojs/">site de documentation Quarto</a></p>
+</section>
+<section id="intéraction-ojs-et-closeread" class="level3">
+<h3 class="anchored" data-anchor-id="intéraction-ojs-et-closeread">Intéraction ojs et closeread</h3>
+<p>Quand on regarde le graphique généré sur les anomalies de température depuis 1860, on pourrait avoir envie de parler de trois périodes et d’afficher les données selon ces trois périodes. Pour cela closeread propose une variable qui s’incrémente au fur à mesure du scroll. Il s’agit de crTriggerIndex.</p>
+<p>Le premier texte qui scrolle correspond à crTriggerIndex == 0, puis on passe à 1, puis 2, etc…</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Le crTriggerIndex est pour tout le document, pas par cr-section. Attention si on ajoute une cr-section avant celle que l’on a configuré il faudra changer les crTriggerIndex de la section.</p>
+</div>
+</div>
+<p>Sachant cela il est possible de mettre à jour le graphique pour prendre en compte ce crTriggerIndex pour réduire les données aux dates précisées.</p>
+<p>Comme on l’a vu précédemment, il fut mettre dans une section closeread comme cela :</p>
+<pre><code>::::{.cr-section}
+
+Le premier texte à afficher sur le graphique vide @cr-plot
+
+Le second texte à afficher @cr-plot
+
+Le troisième @cr-plot
+
+Le dernier @cr-plot
+</code></pre>
+<div class="cell" data-eval="false">
+<div class="sourceCode cell-code" id="cb16" data-startfrom="737" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 736;"><span id="cb16-737"><a href="#cb16-737" aria-hidden="true" tabindex="-1"></a>gistemp <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"gistemp.csv"</span>)<span class="op">.</span><span class="fu">csv</span>({<span class="dt">typed</span><span class="op">:</span> <span class="kw">true</span>})</span>
+<span id="cb16-738"><a href="#cb16-738" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-739"><a href="#cb16-739" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">createPlot</span>(data<span class="op">,</span> startYear<span class="op">,</span> endYear) {</span>
+<span id="cb16-740"><a href="#cb16-740" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb16-741"><a href="#cb16-741" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb16-742"><a href="#cb16-742" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="kw">new</span> <span class="bu">Date</span>(<span class="st">"1880-01-01"</span>)<span class="op">,</span> <span class="kw">new</span> <span class="bu">Date</span>(<span class="st">"2016-12-01"</span>)]<span class="op">,</span> </span>
+<span id="cb16-743"><a href="#cb16-743" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Date →"</span></span>
+<span id="cb16-744"><a href="#cb16-744" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-745"><a href="#cb16-745" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb16-746"><a href="#cb16-746" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="fl">0.8</span><span class="op">,</span> <span class="fl">1.4</span>]<span class="op">,</span> </span>
+<span id="cb16-747"><a href="#cb16-747" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb16-748"><a href="#cb16-748" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> <span class="st">"+f"</span><span class="op">,</span></span>
+<span id="cb16-749"><a href="#cb16-749" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Surface temperature anomaly (°C)"</span></span>
+<span id="cb16-750"><a href="#cb16-750" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-751"><a href="#cb16-751" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb16-752"><a href="#cb16-752" aria-hidden="true" tabindex="-1"></a>      <span class="dt">scheme</span><span class="op">:</span> <span class="st">"BuRd"</span><span class="op">,</span></span>
+<span id="cb16-753"><a href="#cb16-753" aria-hidden="true" tabindex="-1"></a>      <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb16-754"><a href="#cb16-754" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb16-755"><a href="#cb16-755" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb16-756"><a href="#cb16-756" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb16-757"><a href="#cb16-757" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(</span>
+<span id="cb16-758"><a href="#cb16-758" aria-hidden="true" tabindex="-1"></a>        data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> {</span>
+<span id="cb16-759"><a href="#cb16-759" aria-hidden="true" tabindex="-1"></a>          <span class="kw">const</span> year <span class="op">=</span> <span class="kw">new</span> <span class="bu">Date</span>(d<span class="op">.</span><span class="at">Date</span>)<span class="op">.</span><span class="fu">getFullYear</span>()<span class="op">;</span></span>
+<span id="cb16-760"><a href="#cb16-760" aria-hidden="true" tabindex="-1"></a>          <span class="cf">return</span> year <span class="op">&gt;=</span> startYear <span class="op">&amp;&amp;</span> year <span class="op">&lt;</span> endYear<span class="op">;</span></span>
+<span id="cb16-761"><a href="#cb16-761" aria-hidden="true" tabindex="-1"></a>        })<span class="op">,</span> </span>
+<span id="cb16-762"><a href="#cb16-762" aria-hidden="true" tabindex="-1"></a>        {<span class="dt">x</span><span class="op">:</span> <span class="st">"Date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Anomaly"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"Anomaly"</span>}</span>
+<span id="cb16-763"><a href="#cb16-763" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb16-764"><a href="#cb16-764" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
+<span id="cb16-765"><a href="#cb16-765" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(width<span class="op">,</span> <span class="dv">900</span>)</span>
+<span id="cb16-766"><a href="#cb16-766" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb16-767"><a href="#cb16-767" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-768"><a href="#cb16-768" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-769"><a href="#cb16-769" aria-hidden="true" tabindex="-1"></a>chart <span class="op">=</span> {</span>
+<span id="cb16-770"><a href="#cb16-770" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (crTriggerIndex <span class="op">==</span> <span class="dv">0</span>) {</span>
+<span id="cb16-771"><a href="#cb16-771" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">createPlot</span>(gistemp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb16-772"><a href="#cb16-772" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-773"><a href="#cb16-773" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> (crTriggerIndex <span class="op">==</span> <span class="dv">1</span>) {</span>
+<span id="cb16-774"><a href="#cb16-774" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">createPlot</span>(gistemp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1930</span>)<span class="op">;</span></span>
+<span id="cb16-775"><a href="#cb16-775" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (crTriggerIndex <span class="op">==</span> <span class="dv">2</span>) {</span>
+<span id="cb16-776"><a href="#cb16-776" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">createPlot</span>(gistemp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1980</span>)<span class="op">;</span></span>
+<span id="cb16-777"><a href="#cb16-777" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (crTriggerIndex <span class="op">==</span> <span class="dv">3</span>) {</span>
+<span id="cb16-778"><a href="#cb16-778" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">createPlot</span>(gistemp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">Infinity</span>)<span class="op">;</span></span>
+<span id="cb16-779"><a href="#cb16-779" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb16-780"><a href="#cb16-780" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">createPlot</span>(gistemp<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="kw">Infinity</span>)<span class="op">;</span> </span>
+<span id="cb16-781"><a href="#cb16-781" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-782"><a href="#cb16-782" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pour plus de fluidité, la variable crTriggerProgress est un nombre compris entre 0 et 1 représentant la progression des scrolls dans l’ensemble du document.</p>
+</div>
+</div>
+</section>
+<section id="scroll-dans-un-progress-block" class="level3">
+<h3 class="anchored" data-anchor-id="scroll-dans-un-progress-block">Scroll dans un progress-block</h3>
+<p>Il est possible de gérer le scroll uniquement pour une section closeread grâce au progress-block. En mettant le texte qui défile dans un progress-block, on peut jouer sur la variable crProgressBlock qui sera de 0 à 1 mais juste pour le bloc.</p>
+<p>Un exemple de mise en place :</p>
+<pre><code>::::{.cr-section}
+
+:::{.progress-block}
+text1 @cr-plot3
+
+text2 @cr-plot3
+
+text3 @cr-plot3
+
+text4 @cr-plot3
+
+text5 @cr-plot3
+
+text6 @cr-plot3
+:::</code></pre>
+<div class="cell" data-eval="false">
+<div class="sourceCode cell-code" id="cb18" data-startfrom="820" data-source-offset="-2"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 819;"><span id="cb18-820"><a href="#cb18-820" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">createPlotDynamic</span>(data<span class="op">,</span> progress) {</span>
+<span id="cb18-821"><a href="#cb18-821" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> startYear <span class="op">=</span> <span class="dv">1880</span><span class="op">;</span> </span>
+<span id="cb18-822"><a href="#cb18-822" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> endYear <span class="op">=</span> <span class="dv">2024</span><span class="op">;</span> </span>
+<span id="cb18-823"><a href="#cb18-823" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-824"><a href="#cb18-824" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> dynamicYear <span class="op">=</span> startYear <span class="op">+</span> (endYear <span class="op">-</span> startYear) <span class="op">*</span> progress<span class="op">;</span></span>
+<span id="cb18-825"><a href="#cb18-825" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-826"><a href="#cb18-826" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb18-827"><a href="#cb18-827" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {</span>
+<span id="cb18-828"><a href="#cb18-828" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="kw">new</span> <span class="bu">Date</span>(<span class="st">"1880-01-01"</span>)<span class="op">,</span> <span class="kw">new</span> <span class="bu">Date</span>(<span class="st">"2016-12-01"</span>)]<span class="op">,</span> </span>
+<span id="cb18-829"><a href="#cb18-829" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"Date →"</span></span>
+<span id="cb18-830"><a href="#cb18-830" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb18-831"><a href="#cb18-831" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {</span>
+<span id="cb18-832"><a href="#cb18-832" aria-hidden="true" tabindex="-1"></a>      <span class="dt">domain</span><span class="op">:</span> [<span class="op">-</span><span class="fl">0.8</span><span class="op">,</span> <span class="fl">1.4</span>]<span class="op">,</span> </span>
+<span id="cb18-833"><a href="#cb18-833" aria-hidden="true" tabindex="-1"></a>      <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb18-834"><a href="#cb18-834" aria-hidden="true" tabindex="-1"></a>      <span class="dt">tickFormat</span><span class="op">:</span> <span class="st">"+f"</span><span class="op">,</span></span>
+<span id="cb18-835"><a href="#cb18-835" aria-hidden="true" tabindex="-1"></a>      <span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Surface temperature anomaly (°C)"</span></span>
+<span id="cb18-836"><a href="#cb18-836" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb18-837"><a href="#cb18-837" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb18-838"><a href="#cb18-838" aria-hidden="true" tabindex="-1"></a>      <span class="dt">scheme</span><span class="op">:</span> <span class="st">"BuRd"</span><span class="op">,</span></span>
+<span id="cb18-839"><a href="#cb18-839" aria-hidden="true" tabindex="-1"></a>      <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb18-840"><a href="#cb18-840" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb18-841"><a href="#cb18-841" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb18-842"><a href="#cb18-842" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb18-843"><a href="#cb18-843" aria-hidden="true" tabindex="-1"></a>      Plot<span class="op">.</span><span class="fu">dot</span>(</span>
+<span id="cb18-844"><a href="#cb18-844" aria-hidden="true" tabindex="-1"></a>        data<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> {</span>
+<span id="cb18-845"><a href="#cb18-845" aria-hidden="true" tabindex="-1"></a>          <span class="kw">const</span> year <span class="op">=</span> <span class="kw">new</span> <span class="bu">Date</span>(d<span class="op">.</span><span class="at">Date</span>)<span class="op">.</span><span class="fu">getFullYear</span>()<span class="op">;</span></span>
+<span id="cb18-846"><a href="#cb18-846" aria-hidden="true" tabindex="-1"></a>          <span class="cf">return</span> year <span class="op">&lt;=</span> dynamicYear<span class="op">;</span> </span>
+<span id="cb18-847"><a href="#cb18-847" aria-hidden="true" tabindex="-1"></a>        })<span class="op">,</span> </span>
+<span id="cb18-848"><a href="#cb18-848" aria-hidden="true" tabindex="-1"></a>        {<span class="dt">x</span><span class="op">:</span> <span class="st">"Date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"Anomaly"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"Anomaly"</span>}</span>
+<span id="cb18-849"><a href="#cb18-849" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb18-850"><a href="#cb18-850" aria-hidden="true" tabindex="-1"></a>    ]<span class="op">,</span></span>
+<span id="cb18-851"><a href="#cb18-851" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(width<span class="op">,</span> <span class="dv">900</span>)</span>
+<span id="cb18-852"><a href="#cb18-852" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb18-853"><a href="#cb18-853" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-854"><a href="#cb18-854" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-855"><a href="#cb18-855" aria-hidden="true" tabindex="-1"></a>chartDynamic <span class="op">=</span> <span class="fu">createPlotDynamic</span>(gistemp<span class="op">,</span> crProgressBlock)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<p>Vous pouvez consulter le fichier d’exemple ici : <a href="./example_formation/7-scroll-observable.qmd" target="_blank">7-scroll-observable</a></p>
+</section>
+<section id="cartes" class="level3">
+<h3 class="anchored" data-anchor-id="cartes">Cartes</h3>
+<p>Maintenant que l’on sait faire des blocs .ojs et qu’on arrive à les animer avec closeread, un univers de possibilités s’ouvre à nous… et en particulier l’univers des cartes.</p>
+<p>Dans la dataviz sur Saint-Jacut de la Mer, un exemple de carte est disponible.</p>
+<p>Vous pouvez également en faire avec le super <a href="https://observablehq.com/@neocartocnrs/hello-bertin-js">bertin.js</a>.</p>
+</section>
+</section>
+<section id="déploiement-sur-github-pages-avancé" class="level2">
+<h2 class="anchored" data-anchor-id="déploiement-sur-github-pages-avancé">Déploiement sur Github Pages <span class="class" data-key="hard">avancé</span></h2>
+<p>Créer une dataviz c’est bien. La rendre accessible à tous sur Internet c’est mieux !</p>
+<p>Nous proposons quelques astuces pour un déploiement sur Github Pages <a href="https://quarto.org/docs/publishing/github-pages.html#overview">Doc sur quarto dans Github Pages</a> :</p>
+<ul>
+<li><p>Prérequis : avoir ou créer un compte Github</p></li>
+<li><p>Créer un répertoire public sur Github et y déposer votre dataviz</p></li>
+<li><p>Gérer le Freezing Computations en créant un fichier <code>_quarto.yml</code> qui contient :</p></li>
+</ul>
+<pre><code>execute:
+  freeze: auto</code></pre>
+<ul>
+<li><p>Recréer totalement votre site en lançant la commande <code>quarto render</code></p></li>
+<li><p>Créer une brance gh-pages en tapant dans un terminal :</p></li>
+</ul>
+<pre><code>git checkout --orphan gh-pages
+git reset --hard # make sure all changes are committed before running this!
+git commit --allow-empty -m "Initialising gh-pages branch"
+git push origin gh-pages</code></pre>
+<ul>
+<li><p>Dans Github, aller sur le répertoire de la dataviz et dans l’onglet Settings. Aller dans la section Pages et l’activer en choisissant la branche gh-pages <img src="./img/formation/gh-pages.png" class="img-fluid"></p></li>
+<li><p>Créer un fichier <code>.gitignore</code> à la racine de votre projet et y mettre :</p></li>
+</ul>
+<pre><code>/.quarto/
+/_site/</code></pre>
+<ul>
+<li><p>Dans le terminal, taper <code>quarto publish gh-pages</code></p></li>
+<li><p>Ajouter un fichier <code>publish.yml</code> dans le répertoire <code>.github/workflows/</code> (répertoire à créer). VOici le contenu de ce fichier</p></li>
+</ul>
+<pre><code>on:
+  push:
+    branches: master
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        
+      - name: Set up system dependencies 
+        run: | 
+          sudo apt-get update 
+          sudo apt-get install -y libproj-dev gdal-bin
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.2.0'
+
+      - name: Install R Dependencies
+        uses: r-lib/actions/setup-renv@v2
+        with:
+          cache-version: 1
+
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+</code></pre>
+<p>Maintenant à chaque push de votre banche master, votre site de dataviz sera publié à l’adresse <code>http:\\votreIdGitub.githu.io\votreRepo</code>.</p>
+<p>Pour vérifier que tout fonctionne parfaitement, consulter les résultats des actions dans l’onglet Actions de github.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W119
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../..";
+window._ojs.paths.runtimeToRoot = "../../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
