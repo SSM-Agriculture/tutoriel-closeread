@@ -4,5 +4,5 @@
 
 # Tutoriel Closeread
 
-Tutoriel qui permet de créer des dataviz en datascrollytelling sur un thème qui vous tient à coeur par Anaël Delorme(https://github.com/anaelDelorme).
+Tutoriel qui permet de créer des dataviz en datascrollytelling sur un thème qui vous tient à coeur par [Anaël Delorme](https://github.com/anaelDelorme).
 
